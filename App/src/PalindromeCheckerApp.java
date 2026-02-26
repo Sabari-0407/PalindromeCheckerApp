@@ -1,28 +1,53 @@
+import java.util.Stack;
+
+/**
+ * ==========================================================
+ * MAIN CLASS - UseCase5PalindromeCheckerApp
+ * ==========================================================
+ *
+ * Use Case 5: Stack Based Palindrome Checker
+ *
+ * Description:
+ * This class validates a palindrome using a Stack
+ * data structure which follows the LIFO principle.
+ *
+ * @author Developer
+ * @version 5.0
+ */
+
 public class PalindromeCheckerApp {
 
+    /**
+     * Application entry point for UC5.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
 
-        String input = "radar";
+        // Declare and initialize input string
+        String input = "noon";
 
-        char[] chars = input.toCharArray();
+        // Create stack
+        Stack<Character> stack = new Stack<>();
 
-        int start = 0;
-        int end = chars.length - 1;
+        // Push characters into stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
         boolean isPalindrome = true;
 
-        while (start < end) {
+        // Pop and compare
+        for (char c : input.toCharArray()) {
 
-            if (chars[start] != chars[end]) {
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-
-            start++;
-            end--;
         }
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
+
