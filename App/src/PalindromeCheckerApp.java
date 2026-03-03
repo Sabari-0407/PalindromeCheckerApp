@@ -2,35 +2,16 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Stack;
 
-public class PalindromeCheckerApp {
-
-    public static void main(String[] args) {
-
-        String input = "level";
-
-        PalindromeStrategy strategy;
-
-        strategy = new StackStrategy();
-
-        boolean result = strategy.check(input);
-
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
-    }
-}
-
 /* ==========================================================
    Strategy Interface
    ========================================================== */
-
 interface PalindromeStrategy {
     boolean check(String input);
 }
 
 /* ==========================================================
-   Stack Strategy Implementation
+   Stack Strategy
    ========================================================== */
-
 class StackStrategy implements PalindromeStrategy {
 
     @Override
@@ -38,12 +19,10 @@ class StackStrategy implements PalindromeStrategy {
 
         Stack<Character> stack = new Stack<>();
 
-        // Push all characters
         for (char c : input.toCharArray()) {
             stack.push(c);
         }
 
-        // Compare by popping
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
                 return false;
@@ -55,9 +34,8 @@ class StackStrategy implements PalindromeStrategy {
 }
 
 /* ==========================================================
-   Deque Strategy Implementation
+   Deque Strategy
    ========================================================== */
-
 class DequeStrategy implements PalindromeStrategy {
 
     @Override
@@ -70,7 +48,6 @@ class DequeStrategy implements PalindromeStrategy {
         }
 
         while (deque.size() > 1) {
-
             char front = deque.removeFirst();
             char rear = deque.removeLast();
 
@@ -83,7 +60,32 @@ class DequeStrategy implements PalindromeStrategy {
     }
 }
 
+/* ==========================================================
+   Performance Comparison (UC13)
+   ========================================================== */
+public class PalindromeCheckerApp {
 
+    public static void main(String[] args) {
 
+        String input = "level";
 
+        PalindromeStrategy stackStrategy = new StackStrategy();
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
 
+        long start1 = System.nanoTime();
+        boolean result1 = stackStrategy.check(input);
+        long end1 = System.nanoTime();
+
+        long start2 = System.nanoTime();
+        boolean result2 = dequeStrategy.check(input);
+        long end2 = System.nanoTime();
+
+        System.out.println("Input : " + input);
+
+        System.out.println("Stack Result : " + result1);
+        System.out.println("Stack Execution Time : " + (end1 - start1) + " ns");
+
+        System.out.println("Deque Result : " + result2);
+        System.out.println("Deque Execution Time : " + (end2 - start2) + " ns");
+    }
+}
