@@ -2,13 +2,21 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Stack;
 
+/* ==========================================================
+   Strategy Interface
+   ========================================================== */
 interface PalindromeStrategy {
     boolean check(String input);
 }
 
+/* ==========================================================
+   Stack Strategy
+   ========================================================== */
 class StackStrategy implements PalindromeStrategy {
 
+    @Override
     public boolean check(String input) {
+
         Stack<Character> stack = new Stack<>();
 
         for (char c : input.toCharArray()) {
@@ -20,13 +28,19 @@ class StackStrategy implements PalindromeStrategy {
                 return false;
             }
         }
+
         return true;
     }
 }
 
+/* ==========================================================
+   Deque Strategy
+   ========================================================== */
 class DequeStrategy implements PalindromeStrategy {
 
+    @Override
     public boolean check(String input) {
+
         Deque<Character> deque = new ArrayDeque<>();
 
         for (char c : input.toCharArray()) {
@@ -34,14 +48,21 @@ class DequeStrategy implements PalindromeStrategy {
         }
 
         while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 return false;
             }
         }
+
         return true;
     }
 }
 
+/* ==========================================================
+   Performance Comparison (UC13)
+   ========================================================== */
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
