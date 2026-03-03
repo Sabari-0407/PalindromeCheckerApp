@@ -15,7 +15,6 @@ public class PalindromeCheckerApp {
     }
 }
 
-// Service class that contains palindrome logic
 class PalindromeService {
 
     public boolean checkPalindrome(String input) {
